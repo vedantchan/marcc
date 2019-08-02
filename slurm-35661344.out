@@ -1,0 +1,36 @@
+Saved current collection of modules to: "jupyter_marcc_modules"
+
+[STATUS] temporary screenrc at jupyter-notebook.35661344.tmp
+[STATUS] executing in a screen
+[STATUS] waiting for the server to start
+
+[STATUS] Jupyter notebook server is ready!
+
+[STATUS] Need custom modules?
+         Close this notebook with ctrl+c (or scancel).
+         Then, install a custom environment with:
+             module load python/3.6-anaconda
+             conda create -p ./path/to/my_env_name
+             conda activate ./path/to/my_env_name
+             conda install ipykernel
+             conda install ... 
+             pip install ... 
+         then when you run this script (jupyter_notebook_start) again, 
+         you will always see your custom environment ('my_env_name') 
+         in the "New" notebook menu on jupyter.
+
+[STATUS] additional details: 
+         Forwarded port: 9570
+         Remote server: compute0716
+         Remote port: 9570
+         SSH server: login.marcc.jhu.edu
+         SSH login: vchandr8@jhu.edu
+         SSH port: 22
+         Credential: token: 50269914a9bc8a846e2fd548979028e1dacecef2782d1d34
+
+[STATUS] HOW TO ACCESS YOUR NOTEBOOK SERVER
+[STATUS] from a terminal you must run:
+ssh -N -L 9570:compute0716:9570 vchandr8@jhu.edu@login.marcc.jhu.edu
+[STATUS] once you connect, visit: 
+http://localhost:9570/?token=50269914a9bc8a846e2fd548979028e1dacecef2782d1d34
+slurmstepd: error: *** JOB 35661344 ON compute0716 CANCELLED AT 2019-08-02T00:44:07 DUE TO TIME LIMIT ***

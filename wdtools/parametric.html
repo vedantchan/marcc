@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module parametric</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>parametric</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/vedantchandra/WD-Research/marcc/wdtools/parametric.py">/Users/vedantchandra/WD-Research/marcc/wdtools/parametric.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+<a href="pickle.html">pickle</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="parametric.html#LineProfiles">LineProfiles</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LineProfiles">class <strong>LineProfiles</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#LineProfiles">LineProfiles</a>(verbose=False,&nbsp;plot_profiles=False,&nbsp;model='rf25.p',&nbsp;boot_model='bootstrap_rf.p')<br>
+&nbsp;<br>
+General&nbsp;class&nbsp;to&nbsp;fit&nbsp;Voigt&nbsp;profiles&nbsp;to&nbsp;the&nbsp;first&nbsp;3&nbsp;Balmer&nbsp;absorption&nbsp;lines,&nbsp;and&nbsp;then&nbsp;infer&nbsp;stellar&nbsp;labels.<br>
+Uses&nbsp;a&nbsp;25-tree&nbsp;random&nbsp;forest&nbsp;model&nbsp;by&nbsp;default,&nbsp;trained&nbsp;on&nbsp;5326&nbsp;spectra&nbsp;from&nbsp;the&nbsp;Sloan&nbsp;Digital&nbsp;Sky&nbsp;Survey.&nbsp;<br>
+Probabilistic&nbsp;prediction&nbsp;uses&nbsp;100&nbsp;boostrapped&nbsp;random&nbsp;forest&nbsp;models&nbsp;with&nbsp;10&nbsp;trees&nbsp;each,&nbsp;also&nbsp;SDSS-trained.&nbsp;<br>
+Ground&nbsp;truth&nbsp;labels&nbsp;are&nbsp;taken&nbsp;from&nbsp;Tremblay&nbsp;et&nbsp;al.&nbsp;(2019)<br>
+Line&nbsp;profiles&nbsp;are&nbsp;fit&nbsp;using&nbsp;the&nbsp;LMFIT&nbsp;package&nbsp;via&nbsp;chi^2&nbsp;minimization.&nbsp;<br>
+&nbsp;<br>
+To&nbsp;get&nbsp;started,&nbsp;use&nbsp;<a href="#LineProfiles">LineProfiles</a>.<a href="#LineProfiles-infer_labels">infer_labels</a>(wavelength,&nbsp;flux)<br>
+For&nbsp;more&nbsp;details,&nbsp;run&nbsp;help(<a href="#LineProfiles">LineProfiles</a>)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LineProfiles-__init__"><strong>__init__</strong></a>(self, verbose=False, plot_profiles=False, model='rf25.p', boot_model='bootstrap_rf.p')</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-chisquare"><strong>chisquare</strong></a>(self, residual)</dt><dd><tt>Chi^2&nbsp;statistics&nbsp;from&nbsp;residual<br>
+&nbsp;<br>
+Unscaled&nbsp;chi^2&nbsp;statistic&nbsp;from&nbsp;an&nbsp;array&nbsp;of&nbsp;residuals&nbsp;(does&nbsp;not&nbsp;account&nbsp;for&nbsp;uncertainties).</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-fit_balmer"><strong>fit_balmer</strong></a>(self, wl, flux)</dt><dd><tt>Fit&nbsp;3&nbsp;Balmer&nbsp;Lines<br>
+Input:&nbsp;spectrum&nbsp;wavelength,&nbsp;spectrum&nbsp;flux<br>
+Output:&nbsp;15&nbsp;Balmer&nbsp;parameters&nbsp;in&nbsp;array<br>
+&nbsp;<br>
+Wrapper&nbsp;that&nbsp;runs&nbsp;fit_line&nbsp;on&nbsp;all&nbsp;3&nbsp;Balmer&nbsp;lines&nbsp;and&nbsp;returns&nbsp;5x3&nbsp;=&nbsp;15&nbsp;line&nbsp;parameters&nbsp;from&nbsp;the&nbsp;spectrum.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-fit_line"><strong>fit_line</strong></a>(self, wl, flux, centroid, window=400, edges=200)</dt><dd><tt>Fit&nbsp;Single&nbsp;Line<br>
+&nbsp;<br>
+Base&nbsp;function&nbsp;to&nbsp;fit&nbsp;Voigt&nbsp;profile&nbsp;around&nbsp;a&nbsp;specified&nbsp;centroid&nbsp;on&nbsp;the&nbsp;spectrum.&nbsp;<br>
+The&nbsp;continuum&nbsp;is&nbsp;normalized&nbsp;at&nbsp;each&nbsp;absorption&nbsp;line&nbsp;via&nbsp;a&nbsp;simple&nbsp;linear&nbsp;polynimial&nbsp;through&nbsp;the&nbsp;edges.<br>
+Window&nbsp;size&nbsp;and&nbsp;edge&nbsp;size&nbsp;can&nbsp;be&nbsp;modified.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-infer_labels"><strong>infer_labels</strong></a>(self, wl, flux)</dt><dd><tt>Infer&nbsp;Labels&nbsp;from&nbsp;Spectrum&nbsp;with&nbsp;uncertainties<br>
+Input:&nbsp;wavelengths,&nbsp;fluxes<br>
+Output:&nbsp;[Teff,&nbsp;error_Teff,&nbsp;Logg,&nbsp;error_Logg]<br>
+&nbsp;<br>
+All-in-one&nbsp;function&nbsp;that&nbsp;returns&nbsp;inferred&nbsp;stellar&nbsp;labels&nbsp;from<br>
+a&nbsp;given&nbsp;spectrum&nbsp;by&nbsp;fitting&nbsp;the&nbsp;first&nbsp;3&nbsp;Balmer&nbsp;lines<br>
+and&nbsp;deploying&nbsp;a&nbsp;bootstrap&nbsp;ensemble&nbsp;of&nbsp;RF&nbsp;models&nbsp;to&nbsp;<br>
+estimate&nbsp;labels&nbsp;with&nbsp;uncertainties&nbsp;(std.&nbsp;dev.)<br>
+Model&nbsp;uses&nbsp;100&nbsp;independent&nbsp;random&nbsp;forests&nbsp;trained&nbsp;on&nbsp;<br>
+bootstrap&nbsp;samples&nbsp;of&nbsp;the&nbsp;SDSS&nbsp;spectra.&nbsp;Inference&nbsp;reports<br>
+mean&nbsp;and&nbsp;standard&nbsp;deviation&nbsp;of&nbsp;100&nbsp;bootstrap&nbsp;samples&nbsp;of&nbsp;the&nbsp;labels.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-labels_from_parameters"><strong>labels_from_parameters</strong></a>(self, balmer_parameters)</dt><dd><tt>Predict&nbsp;Labels&nbsp;from&nbsp;Balmer&nbsp;Parameters<br>
+Input:&nbsp;15&nbsp;Balmer&nbsp;parameters&nbsp;in&nbsp;array&nbsp;or&nbsp;list<br>
+Output:&nbsp;(Teff&nbsp;(kelvin),&nbsp;Log(g)&nbsp;(log&nbsp;cm/s^2))<br>
+&nbsp;<br>
+Returns&nbsp;inferred&nbsp;stellar&nbsp;labels&nbsp;from&nbsp;15&nbsp;Balmer&nbsp;line&nbsp;parameters.&nbsp;<br>
+Pass&nbsp;the&nbsp;output&nbsp;of&nbsp;fit_balmer&nbsp;to&nbsp;this.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-labels_from_spectrum"><strong>labels_from_spectrum</strong></a>(self, wl, flux)</dt><dd><tt>Predict&nbsp;Labels&nbsp;from&nbsp;Spectrum<br>
+Input:&nbsp;wavelengths,&nbsp;fluxes<br>
+Output:&nbsp;(Teff&nbsp;(kelvin),&nbsp;Log(g)&nbsp;(log&nbsp;cm/s^2))<br>
+&nbsp;<br>
+All-in-one&nbsp;function&nbsp;that&nbsp;returns&nbsp;inferred&nbsp;stellar&nbsp;labels&nbsp;from<br>
+a&nbsp;given&nbsp;spectrum&nbsp;by&nbsp;fitting&nbsp;the&nbsp;first&nbsp;3&nbsp;Balmer&nbsp;lines<br>
+and&nbsp;deploying&nbsp;a&nbsp;single&nbsp;model&nbsp;of&nbsp;choice&nbsp;to&nbsp;make&nbsp;an&nbsp;inference.</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-linear"><strong>linear</strong></a>(self, wl, p1, p2)</dt><dd><tt>Linear&nbsp;polynomial&nbsp;of&nbsp;degree&nbsp;1</tt></dd></dl>
+
+<dl><dt><a name="LineProfiles-pretty_infer_labels"><strong>pretty_infer_labels</strong></a>(self, wl, flux)</dt><dd><tt>Same&nbsp;as&nbsp;infer_labels,&nbsp;but&nbsp;prints&nbsp;output&nbsp;as&nbsp;well</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-bisect_left"><strong>bisect_left</strong></a>(...)</dt><dd><tt><a href="#-bisect_left">bisect_left</a>(a,&nbsp;x[,&nbsp;lo[,&nbsp;hi]])&nbsp;-&gt;&nbsp;index<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;index&nbsp;where&nbsp;to&nbsp;insert&nbsp;item&nbsp;x&nbsp;in&nbsp;list&nbsp;a,&nbsp;assuming&nbsp;a&nbsp;is&nbsp;sorted.<br>
+&nbsp;<br>
+The&nbsp;return&nbsp;value&nbsp;i&nbsp;is&nbsp;such&nbsp;that&nbsp;all&nbsp;e&nbsp;in&nbsp;a[:i]&nbsp;have&nbsp;e&nbsp;&lt;&nbsp;x,&nbsp;and&nbsp;all&nbsp;e&nbsp;in<br>
+a[i:]&nbsp;have&nbsp;e&nbsp;&gt;=&nbsp;x.&nbsp;&nbsp;So&nbsp;if&nbsp;x&nbsp;already&nbsp;appears&nbsp;in&nbsp;the&nbsp;list,&nbsp;i&nbsp;points&nbsp;just<br>
+before&nbsp;the&nbsp;leftmost&nbsp;x&nbsp;already&nbsp;there.<br>
+&nbsp;<br>
+Optional&nbsp;args&nbsp;lo&nbsp;(default&nbsp;0)&nbsp;and&nbsp;hi&nbsp;(default&nbsp;len(a))&nbsp;bound&nbsp;the<br>
+slice&nbsp;of&nbsp;a&nbsp;to&nbsp;be&nbsp;searched.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>dir_path</strong> = '/Users/vedantchandra/WD-Research/marcc/wdtools'<br>
+<strong>path</strong> = '/Users/vedantchandra/WD-Research/marcc/wdtools/parametric.py'</td></tr></table>
+</body></html>
